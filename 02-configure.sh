@@ -1,27 +1,53 @@
 #!/bin/bash
-# Configuration script - optional API keys and settings
+# Configuration script - Setup API keys
 
 set -e
 
 echo "╔═══════════════════════════════════════════════════════════╗"
-echo "║         Tool Configuration (Optional)                     ║"
+echo "║         API Keys Configuration                            ║"
 echo "╚═══════════════════════════════════════════════════════════╝"
 echo ""
 
 # Create config directories
 mkdir -p ~/.config/subfinder
-mkdir -p ~/.config/nuclei
-mkdir -p ~/.config/httpx
-mkdir -p ~/.config/katana
 
-echo "[+] Configuration directories created"
-echo ""
-echo "Optional: Add API keys for better results"
-echo ""
-echo "Subfinder API keys (~/.config/subfinder/provider-config.yaml):"
-echo "  - Chaos: https://chaos.projectdiscovery.io"
-echo "  - Shodan: https://shodan.io"
-echo "  - Censys: https://censys.io"
-echo ""
-echo "See docs/ folder for each tool's configuration options"
+# Check if API keys are provided as environment variables
+if [ -n "$CHAOS_KEY" ] || [ -n "$SHODAN_KEY" ] || [ -n "$CENSYS_TOKEN" ]; then
+    echo "[+] Configuring API keys from environment variables..."
+
+    cat > ~/.config/subfinder/provider-config.yaml << EOF
+# ProjectDiscovery Chaos
+chaos:
+  - ${CHAOS_KEY}
+
+# Shodan
+shodan:
+  - ${SHODAN_KEY}
+
+# Censys (Personal Access Token)
+censys:
+  - ${CENSYS_TOKEN}
+EOF
+
+    echo "✓ API keys configured!"
+    echo ""
+    echo "Configured services:"
+    [ -n "$CHAOS_KEY" ] && echo "  - Chaos (ProjectDiscovery)"
+    [ -n "$SHODAN_KEY" ] && echo "  - Shodan"
+    [ -n "$CENSYS_TOKEN" ] && echo "  - Censys"
+
+else
+    echo "[!] No API keys found in environment variables"
+    echo ""
+    echo "To configure API keys, set these environment variables:"
+    echo ""
+    echo "  export CHAOS_KEY='your-chaos-key'"
+    echo "  export SHODAN_KEY='your-shodan-key'"
+    echo "  export CENSYS_TOKEN='your-censys-pat-token'"
+    echo ""
+    echo "Then run this script again."
+    echo ""
+    echo "Or manually edit: ~/.config/subfinder/provider-config.yaml"
+fi
+
 echo ""
