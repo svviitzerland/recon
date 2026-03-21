@@ -44,9 +44,17 @@ tar -C /usr/local -xzf go1.26.1.linux-amd64.tar.gz
 rm go1.26.1.linux-amd64.tar.gz
 
 # Setup Go environment
+export HOME=/root
+export GOPATH=/root/go
+export GOMODCACHE=/root/go/pkg/mod
+export GOCACHE=/root/.cache/go-build
+export PATH=/root/go/bin:/usr/local/go/bin:$PATH
+
+echo 'export HOME=/root' >> /root/.bashrc
 echo 'export PATH=/root/go/bin:/usr/local/go/bin:$PATH' >> /root/.bashrc
 echo 'export GOPATH=/root/go' >> /root/.bashrc
 echo 'export GOMODCACHE=/root/go/pkg/mod' >> /root/.bashrc
+echo 'export GOCACHE=/root/.cache/go-build' >> /root/.bashrc
 
 export PATH=/root/go/bin:/usr/local/go/bin:$PATH
 export GOPATH=/root/go

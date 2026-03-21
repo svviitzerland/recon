@@ -3,9 +3,11 @@
 
 set -e
 
+export HOME=/root
 export PATH=/root/go/bin:/usr/local/go/bin:$PATH
 export GOPATH=/root/go
 export GOMODCACHE=/root/go/pkg/mod
+export GOCACHE=/root/.cache/go-build
 
 echo "[+] Installing fuzzing and discovery tools..."
 
