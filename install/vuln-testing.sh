@@ -21,7 +21,7 @@ apt-get install -y -qq sqlmap
 
 # CRLFuzz (Open Redirect)
 echo "  - Installing crlfuzz..."
-go install github.com/dwisiswant0/crlfuzz@latest
+go install github.com/dwisiswant0/crlfuzz/cmd/crlfuzz@latest
 
 echo "✓ Vulnerability testing tools installed"
 
