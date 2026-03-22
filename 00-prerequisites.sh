@@ -32,6 +32,11 @@ apt-get install -y -qq \
     python3 \
     python3-pip
 
+# Install Python dependencies
+echo "[2.5/5] Installing Python dependencies..."
+pip3 install --upgrade pip
+pip3 install requests
+
 # Install Go
 echo "[3/5] Installing Go 1.26.1..."
 if [ -d /usr/local/go ]; then
