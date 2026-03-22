@@ -34,7 +34,6 @@ apt-get install -y -qq \
 
 # Install Python dependencies
 echo "[2.5/5] Installing Python dependencies..."
-pip3 install --upgrade pip --break-system-packages
 pip3 install requests --break-system-packages
 
 # Install Go
